@@ -1,0 +1,246 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>File Tracking System</title>
+  <link rel="stylesheet" href="index.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <section class="card auth-card" id="loginSection">
+      <h1>File Tracker Login</h1>
+      <p>Sign in to manage your tracked files.</p>
+      <form id="loginForm" class="form-stack">
+        <label>
+          Username
+          <input type="text" id="usernameInput" placeholder="Enter username" required />
+        </label>
+        <label>
+          Password
+          <input type="password" id="passwordInput" placeholder="Enter password" required />
+        </label>
+        <label class="checkbox-label">
+          <input type="checkbox" id="rememberMe" /> Remember me
+        </label>
+        <button type="submit" class="btn btn-primary">Login</button>
+      </form>
+      <p class="hint">Use username <strong>admin</strong> and password <strong>1234</strong>.</p>
+    </section>
+
+    <section class="home-shell hidden" id="homeSection">
+      <header class="home-header">
+        <div>
+          <h1>File Tracking System</h1>
+          <p>Track file details, status, archive history, and export/import data.</p>
+        </div>
+        <div class="home-actions">
+          <button id="importBtn" class="btn btn-tertiary">Import JSON</button>
+          <button id="exportBtn" class="btn btn-tertiary">Export JSON</button>
+          <button id="logoutBtn" class="btn btn-secondary">Logout</button>
+        </div>
+      </header>
+
+      <section class="dashboard-grid">
+        <div class="card stats-card">
+          <h2>Overview</h2>
+          <div class="stats-row">
+            <div>
+              <span id="totalFiles">0</span>
+              <p>Total files</p>
+            </div>
+            <div>
+              <span id="pendingFiles">0</span>
+              <p>Pending</p>
+            </div>
+            <div>
+              <span id="inReviewFiles">0</span>
+              <p>In review</p>
+            </div>
+            <div>
+              <span id="completedFiles">0</span>
+              <p>Completed</p>
+            </div>
+            <div>
+              <span id="archivedFiles">0</span>
+              <p>Archived</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card quick-add-card">
+          <h2>Add New File</h2>
+          <form id="fileForm" class="form-stack">
+            <label>
+              File name
+              <input type="text" id="fileNameInput" placeholder="e.g. Contract.pdf" required />
+            </label>
+            <label>
+              Owner
+              <input type="text" id="fileOwnerInput" placeholder="e.g. Jane Doe" required />
+            </label>
+            <div class="inline-grid">
+              <label>
+                Type
+                <select id="fileTypeInput">
+                  <option value="Document">Document</option>
+                  <option value="Spreadsheet">Spreadsheet</option>
+                  <option value="Presentation">Presentation</option>
+                  <option value="Image">Image</option>
+                  <option value="Other">Other</option>
+                </select>
+              </label>
+              <label>
+                Status
+                <select id="fileStatusInput">
+                  <option value="Pending">Pending</option>
+                  <option value="In Review">In Review</option>
+                  <option value="Completed">Completed</option>
+                </select>
+              </label>
+            </div>
+            <div class="inline-grid">
+              <label>
+                Due date
+                <input type="date" id="fileDueInput" />
+              </label>
+              <label>
+                Notes
+                <input type="text" id="fileNotesInput" placeholder="Optional note" />
+              </label>
+            </div>
+            <button type="submit" class="btn btn-primary">Add file</button>
+          </form>
+        </div>
+      </section>
+
+      <section class="card edit-card hidden" id="editCard">
+        <h2>Edit file</h2>
+        <form id="editForm" class="form-stack">
+          <input type="hidden" id="editIdInput" />
+          <label>
+            File name
+            <input type="text" id="editNameInput" required />
+          </label>
+          <label>
+            Owner
+            <input type="text" id="editOwnerInput" required />
+          </label>
+          <div class="inline-grid">
+            <label>
+              Type
+              <select id="editTypeInput">
+                <option value="Document">Document</option>
+                <option value="Spreadsheet">Spreadsheet</option>
+                <option value="Presentation">Presentation</option>
+                <option value="Image">Image</option>
+                <option value="Other">Other</option>
+              </select>
+            </label>
+            <label>
+              Status
+              <select id="editStatusInput">
+                <option value="Pending">Pending</option>
+                <option value="In Review">In Review</option>
+                <option value="Completed">Completed</option>
+              </select>
+            </label>
+          </div>
+          <div class="inline-grid">
+            <label>
+              Due date
+              <input type="date" id="editDueInput" />
+            </label>
+            <label>
+              Notes
+              <input type="text" id="editNotesInput" />
+            </label>
+          </div>
+          <div class="edit-actions">
+            <button type="submit" class="btn btn-primary">Update file</button>
+            <button type="button" id="cancelEditBtn" class="btn btn-secondary">Cancel</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="card table-card">
+        <div class="table-toolbar">
+          <div class="filters-row">
+            <input type="search" id="searchInput" placeholder="Search by file, owner, type, or note" />
+            <select id="statusFilter">
+              <option value="All">All statuses</option>
+              <option value="Pending">Pending</option>
+              <option value="In Review">In Review</option>
+              <option value="Completed">Completed</option>
+            </select>
+            <select id="sortSelect">
+              <option value="newest">Newest</option>
+              <option value="oldest">Oldest</option>
+              <option value="name">Name</option>
+              <option value="owner">Owner</option>
+              <option value="status">Status</option>
+              <option value="dueDate">Due date</option>
+            </select>
+          </div>
+
+          <div class="bulk-row">
+            <div class="bulk-summary">
+              <span id="selectedCount">0</span> selected
+            </div>
+            <div class="bulk-actions">
+              <button id="archiveSelectedBtn" class="btn btn-secondary">Archive selected</button>
+              <button id="completeSelectedBtn" class="btn btn-secondary">Mark completed</button>
+              <button id="deleteSelectedBtn" class="btn btn-danger">Delete selected</button>
+            </div>
+          </div>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th><input type="checkbox" id="selectAllCheckbox" /></th>
+              <th>File</th>
+              <th>Type</th>
+              <th>Owner</th>
+              <th>Status</th>
+              <th>Due date</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="fileTableBody"></tbody>
+        </table>
+      </section>
+
+      <section class="card archived-card">
+        <div class="archived-header">
+          <div>
+            <h2>Archived files</h2>
+            <p>Restore or permanently delete archived items.</p>
+          </div>
+          <span class="archive-count"><strong id="archiveCount">0</strong> archived</span>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>File</th>
+              <th>Owner</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="archivedTableBody"></tbody>
+        </table>
+      </section>
+
+      <section class="card history-card">
+        <h2>History</h2>
+        <p>Recent activity for files, imports, and archive actions.</p>
+        <ul id="historyList"></ul>
+      </section>
+    </section>
+  </main>
+
+  <input type="file" id="importFileInput" accept="application/json" class="hidden" />
+  <script src="index.js"></script>
+</body>
+</html>

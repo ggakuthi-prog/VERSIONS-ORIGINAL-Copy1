@@ -1,0 +1,41 @@
+{
+  "trackedFiles": [
+    {
+      "id": "sample1",
+      "name": "Project Brief.docx",
+      "owner": "Mia Chen",
+      "type": "Document",
+      "status": "Pending",
+      "dueDate": "2026-06-01",
+      "notes": "Approve budget details.",
+      "archived": false,
+      "createdAt": "2026-05-01T08:00:00.000Z",
+      "updatedAt": "2026-05-01T08:00:00.000Z"
+    },
+    {
+      "id": "sample2",
+      "name": "Expense Report.xlsx",
+      "owner": "Noah Clark",
+      "type": "Spreadsheet",
+      "status": "In Review",
+      "dueDate": "2026-06-05",
+      "notes": "Review expense tracking.",
+      "archived": false,
+      "createdAt": "2026-05-02T08:00:00.000Z",
+      "updatedAt": "2026-05-02T08:00:00.000Z"
+    },
+    {
+      "id": "sample3",
+      "name": "Release Notes.pdf",
+      "owner": "Ava Patel",
+      "type": "Document",
+      "status": "Completed",
+      "dueDate": "2026-05-15",
+      "notes": "Finalize release notes.",
+      "archived": false,
+      "createdAt": "2026-05-03T08:00:00.000Z",
+      "updatedAt": "2026-05-03T08:00:00.000Z"
+    }
+  ],
+  "historyLog": []
+}
